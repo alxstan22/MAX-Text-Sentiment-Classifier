@@ -23,14 +23,13 @@ WORKDIR /workspace
 
 ARG use_pre_trained_model=true
 
-RUN if [ "$use_pre_trained_model" = "true" ] ; then\
-     # download pre-trained model artifacts from Cloud Object Storage
-     apt-get update &&\
+RUN apt-get update &&\
      apt-get install -y wget &&\
-     rm -rf /var/lib/apt/lists/* &&\
-     wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} &&\
-     tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file} ; \
-     fi
+     rm -rf /var/lib/apt/lists/*
+
+RUN if [ "$use_pre_trained_model" = "true" ] ; then\
+    wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} &&\
+     tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file} ; fi
 
 COPY requirements.txt /workspace
 RUN pip install -r requirements.txt
