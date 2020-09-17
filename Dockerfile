@@ -36,12 +36,10 @@ RUN pip install -r requirements.txt
 
 COPY . /workspace
 
-RUN if [ "$use_pre_trained_model" = "true" ] ; then \
-      # validate downloaded pre-trained model assets
+RUN if [ "$use_pre_trained_model" = "true" ] ; then\
       sha512sum -c sha512sums.txt ; \
     else \
-      # rename the directory that contains the custom-trained model artifacts
-      if [ -d "./custom_assets/" ] ; then \
+      if [ -d "./custom_assets/" ] ; then\
         rm -rf ./assets && ln -s ./custom_assets ./assets ; \
       fi \
     fi
