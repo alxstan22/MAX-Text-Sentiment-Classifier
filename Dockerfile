@@ -46,4 +46,5 @@ RUN if [ "$use_pre_trained_model" = "true" ] ; then \
 
 EXPOSE 5000
 
-CMD python app.py
+CMD ["python", "app.py"]
+
