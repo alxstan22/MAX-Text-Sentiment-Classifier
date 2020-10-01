@@ -25,9 +25,8 @@ ARG use_pre_trained_model=true
 
 RUN apt-get update &&\
      apt-get install -y wget &&\
-     rm -rf /var/lib/apt/lists/*
-
-RUN if [ "$use_pre_trained_model" = "true" ] ; then\
+     rm -rf /var/lib/apt/lists/* &&\
+     if [ "$use_pre_trained_model" = "true" ] ; then\
     wget -nv --show-progress --progress=bar:force:noscroll ${model_bucket}/${model_file} --output-document=assets/${model_file} &&\
      tar -x -C assets/ -f assets/${model_file} -v && rm assets/${model_file} ; fi
 
